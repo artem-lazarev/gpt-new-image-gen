@@ -1,7 +1,5 @@
+import ImageEditor from "@/components/ImageEditor";
+
 export default function Home() {
-  return (
-    <>
-      <h1>Hello World</h1>
-    </>
-  );
+  return <ImageEditor />;
 }
