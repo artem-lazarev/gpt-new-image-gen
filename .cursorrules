@@ -1,0 +1,84 @@
+# Cursor Rules - AI Image Editor
+
+## Tech Stack
+- **Package Manager**: pnpm (NOT npm/yarn)
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS v4
+- **UI Components**: shadcn/ui (install with pnpm dlx shadcn@latest add)
+- **AI SDK**: Vercel AI SDK v5 (@ai-sdk/openai)
+- **TypeScript**: Strict mode enabled
+
+## Installation Commands
+- Dependencies: `pnpm add [package]`
+- shadcn components: `pnpm dlx shadcn@latest add [component]`
+- Dev dependencies: `pnpm add -D [package]`
+
+## File Structure
+```
+app/
+├── api/edit-image/route.ts     # Vercel AI SDK integration
+├── page.tsx                    # Main page with ImageEditor
+└── layout.tsx                  # Root layout
+components/
+├── ui/                         # shadcn components
+├── ImageUpload.tsx            # File upload component
+├── PromptInput.tsx            # Text input component
+├── GeneratedImage.tsx         # Result display component
+└── ImageEditor.tsx            # Main orchestrator
+```
+
+## Component Guidelines
+- Use TypeScript interfaces for all props
+- Implement proper loading states
+- Add error boundaries and validation
+- Use shadcn/ui components for consistent design
+- Follow React best practices (hooks, memo when needed)
+
+## API Integration
+- Use Vercel AI SDK v5's generateImage function
+- Handle image uploads as base64
+- Implement proper error handling
+- Use environment variables for API keys
+
+## Styling Rules
+- Use Tailwind CSS v4 classes
+- Follow mobile-first responsive design
+- Use shadcn/ui design tokens
+- Implement proper hover/focus states
+
+## State Management
+- Use React useState for component state
+- Lift state up to ImageEditor component
+- Implement proper state flow: upload → prompt → generate → display
+
+## Error Handling
+- Validate file types and sizes
+- Handle API errors gracefully
+- Provide user-friendly error messages
+- Implement retry mechanisms
+
+## Security
+- Validate uploads on both client and server
+- Sanitize user inputs
+- Keep API keys in environment variables
+- Implement rate limiting considerations
+
+## Code Quality
+- Use TypeScript strict mode
+- Follow ESLint and Prettier configurations
+- Write descriptive variable and function names
+- Add JSDoc comments for complex functions
+- Implement proper prop validation
+
+## Performance
+- Optimize image handling (compression, format conversion)
+- Implement proper loading states
+- Use React.memo for expensive components
+- Lazy load components when appropriate
+
+## User Experience
+- Provide clear feedback for all user actions
+- Implement proper loading indicators
+- Handle edge cases gracefully
+- Ensure responsive design across devices
+- Add keyboard navigation support

@@ -1,0 +1,48 @@
+---
+globs: *.tsx,*.ts
+description: Component development guidelines for React/TypeScript files
+---
+
+# Component Development Guidelines
+
+## TypeScript Requirements
+- Use TypeScript interfaces for all props
+- Enable strict mode for type safety
+- Add proper return types for functions
+- Implement proper prop validation
+
+## Component Structure
+```typescript
+interface ComponentProps {
+  // Define all props with proper types
+}
+
+export default function Component({ prop1, prop2 }: ComponentProps) {
+  // Component logic
+  return (
+    // JSX with proper TypeScript
+  );
+}
+```
+
+## React Best Practices
+- Use functional components with hooks
+- Implement React.memo for expensive components
+- Use proper dependency arrays in useEffect
+- Lift state up to parent components when needed
+
+## State Management Flow
+- Use React useState for component state
+- Lift state up to ImageEditor component for shared state
+- Follow the flow: upload → prompt → generate → display
+
+## Loading States & Error Handling
+- Implement proper loading states for all async operations
+- Add error boundaries and validation
+- Provide user-friendly error messages
+- Implement retry mechanisms where appropriate
+
+## Performance
+- Use React.memo for expensive components
+- Lazy load components when appropriate
+- Optimize image handling (compression, format conversion)

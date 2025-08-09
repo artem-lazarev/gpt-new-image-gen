@@ -1,0 +1,54 @@
+---
+alwaysApply: true
+description: User experience and interaction guidelines for the AI Image Editor
+---
+
+# User Experience Guidelines
+
+## Loading States & Feedback
+- Provide clear feedback for all user actions
+- Implement proper loading indicators with progress when possible
+- Show processing states during AI image generation
+- Use skeleton loaders for content that's loading
+
+## Error Handling UX
+- Handle edge cases gracefully with helpful messages
+- Provide specific error messages (file too large, unsupported format, etc.)
+- Include retry options when appropriate
+- Show fallback UI when operations fail
+
+## File Upload Experience
+```tsx
+// Drag & drop with clear feedback
+<div className="border-2 border-dashed border-gray-300 rounded-lg p-6
+                hover:border-gray-400 transition-colors">
+  <p className="text-center text-gray-600">
+    Drag & drop your image here, or click to select
+  </p>
+</div>
+```
+
+## Accessibility Requirements
+- Ensure keyboard navigation support
+- Add proper ARIA labels and descriptions
+- Use semantic HTML elements
+- Provide alternative text for images
+- Maintain proper color contrast ratios
+
+## Mobile Experience
+- Ensure responsive design across all devices
+- Optimize touch targets for mobile (min 44px)
+- Handle mobile file uploads appropriately
+- Test on various screen sizes
+
+## Progressive Enhancement
+- Show upload area immediately
+- Enable prompt input after image upload
+- Activate generate button when both are ready
+- Display results with download options
+
+## Performance Feedback
+- Show image processing progress when possible
+- Provide estimated completion times
+- Allow cancellation of long operations
+- Cache results when appropriate

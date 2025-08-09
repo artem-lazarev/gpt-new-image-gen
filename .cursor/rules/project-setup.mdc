@@ -1,0 +1,38 @@
+---
+alwaysApply: true
+description: Core project setup and tech stack guidelines for AI Image Editor
+---
+
+# AI Image Editor - Project Setup
+
+## Tech Stack Requirements
+- **Package Manager**: pnpm (NOT npm/yarn) - Always use `pnpm add` for dependencies
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS v4 - Use utility classes and mobile-first approach
+- **UI Components**: shadcn/ui - Install with `pnpm dlx shadcn@latest add [component]`
+- **AI SDK**: Vercel AI SDK v5 (@ai-sdk/openai) - Use generateImage function
+- **TypeScript**: Strict mode enabled - All files must be properly typed
+
+## Installation Commands
+- Dependencies: `pnpm add [package]`
+- shadcn components: `pnpm dlx shadcn@latest add [component]`
+- Dev dependencies: `pnpm add -D [package]`
+
+## File Structure
+```
+app/
+├── api/edit-image/route.ts     # Vercel AI SDK integration
+├── page.tsx                    # Main page with ImageEditor
+└── layout.tsx                  # Root layout
+components/
+├── ui/                         # shadcn components
+├── ImageUpload.tsx            # File upload component
+├── PromptInput.tsx            # Text input component
+├── GeneratedImage.tsx         # Result display component
+└── ImageEditor.tsx            # Main orchestrator
+```
+
+## Environment Variables
+- Keep API keys in environment variables
+- Use OPENAI_API_KEY for OpenAI integration
+- Never expose API keys in client-side code

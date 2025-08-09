@@ -1,0 +1,50 @@
+---
+globs: app/api/**/*.ts,**/api/**/*.ts
+description: API route development guidelines using Vercel AI SDK v5
+---
+
+# API Integration Guidelines
+
+## Vercel AI SDK v5 Usage
+- Use `generateImage` function from 'ai' package
+- Import OpenAI provider: `import { openai } from '@ai-sdk/openai'`
+- Configure model: `openai.image('gpt-image-1')`
+
+## API Route Structure
+```typescript
+import { generateImage } from 'ai';
+import { openai } from '@ai-sdk/openai';
+
+export async function POST(request: Request) {
+  try {
+    const { image, prompt } = await request.json();
+    
+    const result = await generateImage({
+      model: openai.image('gpt-image-1'),
+      prompt,
+      image, // Base64 encoded image
+      size: '1024x1024',
+      providerOptions: {
+        openai: { quality: 'high' }
+      }
+    });
+    
+    return Response.json({ imageUrl: result.image.url });
+  } catch (error) {
+    return Response.json({ error: 'Processing failed' }, { status: 500 });
+  }
+}
+```
+
+## Image Handling
+- Handle image uploads as base64 strings
+- Validate file types and sizes on server
+- Convert formats as needed (PNG preferred)
+- Implement proper error responses
+
+## Security & Validation
+- Validate uploads on both client and server
+- Sanitize user inputs
+- Keep API keys in environment variables
+- Implement rate limiting considerations
+- Never expose sensitive data in responses
