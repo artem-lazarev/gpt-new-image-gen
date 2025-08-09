@@ -1,13 +1,11 @@
 import { NextRequest } from "next/server";
-import { experimental_generateImage as generateImage } from 'ai';
-import { openai } from "@ai-sdk/openai";
 
 export async function POST(req: NextRequest) {
   try {
     const { image, prompt, size } = (await req.json()) as {
-      image: string;
+      image: string; // data URL
       prompt: string;
-      size?: "1024x1024" | "1536x1024" | "1024x1536";
+      size?: "1024x1024" | "1792x1024" | "1024x1792";
     };
 
     if (!image || !prompt) {
@@ -17,24 +15,63 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { image: resultImage } = await generateImage({
-      model: openai.image("gpt-image-1"),
-      prompt,
-      image,
-      size: size ?? "1024x1024",
-      providerOptions: {
-        openai: { quality: "high" },
+    // Parse data URL into Blob
+    const match = /^data:(.+);base64,(.*)$/.exec(image);
+    if (!match) {
+      return new Response(
+        JSON.stringify({ error: "Invalid image format" }),
+        { status: 400 }
+      );
+    }
+    const mediaType = match[1];
+    const base64Data = match[2];
+    const binary = Buffer.from(base64Data, "base64");
+    const blob = new Blob([binary], { type: mediaType });
+
+    const form = new FormData();
+    form.append("model", "gpt-image-1");
+    form.append("prompt", prompt);
+    form.append("image", blob, `image.${mediaType.split("/")[1] || "png"}`);
+    form.append("size", size ?? "1024x1024");
+
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      return new Response(
+        JSON.stringify({ error: "Server misconfiguration: missing OPENAI_API_KEY" }),
+        { status: 500 }
+      );
+    }
+
+    const response = await fetch("https://api.openai.com/v1/images/edits", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
       },
+      body: form,
     });
 
-    // The SDK returns a Blob-like object; convert to a data URL for now
-    // Consumers may switch to streaming/file storage later
-    const arrayBuffer = await resultImage.arrayBuffer();
-    const base64 = Buffer.from(arrayBuffer).toString("base64");
-    const contentType = resultImage.type || "image/png";
-    const dataUrl = `data:${contentType};base64,${base64}`;
+    if (!response.ok) {
+      const errText = await response.text();
+      console.error("OpenAI edits error", errText);
+      return new Response(
+        JSON.stringify({ error: "Failed to process image" }),
+        { status: response.status }
+      );
+    }
 
-    return new Response(JSON.stringify({ image: dataUrl }), {
+    const json = (await response.json()) as {
+      data?: Array<{ b64_json?: string; url?: string }>;
+    };
+    const b64 = json?.data?.[0]?.b64_json;
+    if (!b64) {
+      return new Response(
+        JSON.stringify({ error: "No image returned" }),
+        { status: 502 }
+      );
+    }
+    const outDataUrl = `data:image/png;base64,${b64}`;
+
+    return new Response(JSON.stringify({ image: outDataUrl }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
