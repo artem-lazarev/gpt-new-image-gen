@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useRef } from "react";
+import Image from "next/image";
 import { Card } from "@/components/ui/card";
 
 export interface ImageUploadProps {
@@ -49,8 +50,8 @@ export default function ImageUpload({ onChange, value }: ImageUploadProps) {
           onChange={(e) => handleFiles(e.target.files)}
         />
         {value ? (
-          <div className="w-full h-full bg-white rounded-xl overflow-hidden shadow-lg">
-            <img src={value} alt="Original" className="w-full h-full object-cover" />
+          <div className="relative w-full h-full bg-white rounded-xl overflow-hidden shadow-lg">
+            <Image src={value} alt="Original" fill unoptimized className="object-cover" />
           </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center">

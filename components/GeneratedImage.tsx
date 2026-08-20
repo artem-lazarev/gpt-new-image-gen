@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Card } from "@/components/ui/card";
 
 export interface GeneratedImageProps {
@@ -16,8 +17,8 @@ export default function GeneratedImage({ image, isLoading }: GeneratedImageProps
       </div>
       <div className="aspect-square bg-gradient-to-br from-blue-300 to-blue-500 p-6 md:p-8 flex items-center justify-center">
         {image ? (
-          <div className="w-full h-full bg-white rounded-xl overflow-hidden shadow-lg">
-            <img src={image} alt="Generated" className="w-full h-full object-cover" />
+          <div className="relative w-full h-full bg-white rounded-xl overflow-hidden shadow-lg">
+            <Image src={image} alt="Generated" fill unoptimized className="object-cover"></Image>
           </div>
         ) : (
           <div className="text-center text-gray-700">
