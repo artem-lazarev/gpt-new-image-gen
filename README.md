@@ -6,7 +6,7 @@ Built with Next.js (App Router), React 19, Tailwind CSS, and shadcn/ui. The serv
 
 ## Try it
 
-Requires an [OpenAI API key](https://platform.openai.com/api-keys). The generation itself happens server-side; the page and the whole flow run from a single dev server.
+Requires an OpenAI API key (`OPENAI_API_KEY`). The generation itself happens server-side; the page and the whole flow run from a single dev server.
 
 1. Install pnpm and run:
 
