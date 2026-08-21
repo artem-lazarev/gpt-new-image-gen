@@ -6,6 +6,26 @@ Built with Next.js (App Router), React 19, Tailwind CSS, and shadcn/ui. The serv
 
 Live demo: [gpt-new-image-gen.vercel.app](https://gpt-new-image-gen.vercel.app) (PNG/JPEG/WebP, up to 4 MB).
 
+## Watch us build it
+
+I built this project live on YouTube with Ray Fernando — click the thumbnail below to watch the stream.
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=mivEzNtKsAI" target="_blank" rel="noopener noreferrer">
+    <img
+      src="https://i.ytimg.com/vi/mivEzNtKsAI/hqdefault.jpg"
+      alt="Watch us build gpt-new-image-gen live on YouTube with Ray Fernando"
+      width="480"
+      style="max-width:100%; border-radius:8px;"
+    />
+    <svg width="64" height="64" viewBox="0 0 64 64" style="vertical-align:middle;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Play">
+      <circle cx="32" cy="32" r="30" fill="#f00" />
+      <path d="M 26 14 L 42 32 L 26 50 Z" fill="#fff" />
+    </svg>
+    Watch the livestream
+  </a>
+</p>
+
 ## Try it
 
 Requires an OpenAI API key (`OPENAI_API_KEY`). The generation itself happens server-side; the page and the whole flow run from a single dev server.
