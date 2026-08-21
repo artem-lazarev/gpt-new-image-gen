@@ -4,6 +4,8 @@ Web app that edits images with OpenAI's `gpt-image-1` model: drag in a photo, de
 
 Built with Next.js (App Router), React 19, Tailwind CSS, and shadcn/ui. The server passes the image straight to the OpenAI Images API, so nothing is stored and no database is involved.
 
+Live demo: [gpt-new-image-gen.vercel.app](https://gpt-new-image-gen.vercel.app) (PNG/JPEG/WebP, up to 4 MB).
+
 ## Try it
 
 Requires an OpenAI API key (`OPENAI_API_KEY`). The generation itself happens server-side; the page and the whole flow run from a single dev server.
@@ -66,5 +68,5 @@ pnpm lint     # eslint with next/core-web-vitals
 - `png`, `jpg`, and `webp` uploads up to 4 MB only.
 - No model "size" is sent, so every request uses the OpenAI default (`1024x1024`).
 - Generation calls are billed by OpenAI at `gpt-image-1` per-image rates; every Generate click is one paid request.
-- Built with pnpm 11; the lockfile requires pnpm 11+ (`onlyBuiltDependencies` lives in `pnpm-workspace.yaml`).
-- Currently hosted only in local dev; no deployment pipeline is set up.
+- Built with pnpm 11; the lockfile requires pnpm 11+ (`allowBuilds` lives in `pnpm-workspace.yaml`).
+- Deployed to Vercel at https://gpt-new-image-gen.vercel.app; the production `OPENAI_API_KEY` is stored as a Vercel environment variable, so nothing is committed.
